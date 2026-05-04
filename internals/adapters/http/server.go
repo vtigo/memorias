@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
@@ -13,6 +14,11 @@ func StartServer(addr string) error {
 	}
 
 	http.HandleFunc("/hello", helloHandler)
-
+	
+	slog.Info(fmt.Sprintf("listening at %s", addr))
 	return http.ListenAndServe(addr, nil)
+}
+
+func BuildAddress(baseURL string, port int) string {
+	return fmt.Sprintf("%s:%v", baseURL, port)
 }

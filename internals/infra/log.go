@@ -108,8 +108,8 @@ func (m *multiHandler) WithGroup(name string) slog.Handler {
 // ----------------------------------------------
 
 
-func SetupLogger(file *io.Writer){
-	opts := slog.HandlerOptions{Level: slog.LevelInfo}
+func SetupLogger(logLevel slog.Level, file *io.Writer){
+	opts := slog.HandlerOptions{Level: logLevel}
 	handler := &cosmeticHandler{out: os.Stdout, opts: opts}
 	
 	var logger *slog.Logger

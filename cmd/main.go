@@ -8,13 +8,16 @@ import (
 )
 
 func main() {
-	infra.SetupLogger(nil)
+	config, err := infra.LoadConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	infra.SetupLogger(config.LogLevel, nil)
 	slog.Info("starting memories...")
 	
-	addr := "0.0.0.0:3333"
-
-	slog.Info("listening...")
-	err := http.StartServer(addr)
+	addr := http.BuildAddress(config.BaseURL, config.Port)
+	err = http.StartServer(addr)
 	if err != nil {
 		panic(err)
 	}
