@@ -11,6 +11,7 @@ type Config struct {
 	BaseURL  string
 	Port     int
 	LogLevel slog.Level
+	S3Bucket *string
 }
 
 func LoadConfig() (*Config, error) {
@@ -30,6 +31,10 @@ func LoadConfig() (*Config, error) {
 		LogLevel: logLevel,
 	}
 
+	if bucket, ok := os.LookupEnv("S3_BUCKET"); ok {
+		config.S3Bucket = &bucket
+	}
+
 	return config, nil
 }
 
@@ -47,3 +52,4 @@ func parseLogLevel(v string) (slog.Level, error) {
 	}
 	return level, nil
 }
+

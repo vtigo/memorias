@@ -6,7 +6,7 @@ import (
 )
 
 type FileStorager interface {
-	Store(ctx context.Context, key string, r io.Reader, contentType string) error
+	Store(ctx context.Context, key string, r io.Reader) error
 	Read(ctx context.Context, key string) (io.ReadCloser, error)
 	Delete(ctx context.Context, key string) error
 }
